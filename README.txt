@@ -1,6 +1,6 @@
 ERAKAN SYSTEMS LTD — WEBSITE (Phase 1 MVP)
 ===========================================
-Domain: erakansystems.co.ke   |   WhatsApp orders: 0735 038 835
+Domain: erakansystems.co.ke   |   WhatsApp orders: 0735 038 834
 Email: info@erakansystems.co.ke
 
 FOLDER STRUCTURE
@@ -21,8 +21,8 @@ MOST COMMON EDITS
 Change a price............ assets/js/products.js  → edit the number
 Add/remove a product...... assets/js/products.js  → copy/delete a block
 Change brand colours...... assets/css/style.css   → the :root section at top
-Change phone/email........ search-and-replace "254735038835" /
-                           "0735 038 835" / "info@erakansystems.co.ke"
+Change phone/email........ search-and-replace "254735038834" /
+                           "0735 038 834" / "info@erakansystems.co.ke"
 Edit price list table..... products.html → the <table class="price-table">
 
 VIEW LOCALLY

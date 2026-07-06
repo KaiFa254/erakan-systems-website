@@ -13,8 +13,8 @@
    ============================================================ */
 
 /* Your WhatsApp business number in INTERNATIONAL format:
-   0735 038 835  →  254735038835  (drop the 0, add 254). */
-const WHATSAPP_NUMBER = '254735038835';
+   0735 038 834  →  254735038834  (drop the 0, add 254). */
+const WHATSAPP_NUMBER = '254735038834';
 
 /* Categories must match the data-filter values of the buttons
    in products.html: cctv | alarm | network | power | access   */
