@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     ERAKAN SYSTEMS LTD — products.html  (MVP e-commerce)
+     ------------------------------------------------------------
+     How this page works:
+       1. The empty <div id="product-grid"> is a placeholder.
+       2. assets/js/products.js contains the PRODUCTS list and
+          fills the grid automatically when the page loads.
+       3. The filter buttons re-draw the grid per category.
+       4. Every "Buy Now" opens WhatsApp with a prefilled message
+          — no payment gateway, no backend, no database.
+     To change prices or add products → edit products.js ONLY.
+     ============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Products &amp; Price List | Hikvision CCTV, Alarms, Networking &amp; Power — Erakan Systems Kenya</title>
+  <meta name="description" content="Buy Hikvision CCTV cameras, DVRs, NVRs, intruder alarms, electric fence kits, Cat6 cabling, IP phones, UPS, inverters and solar products in Kenya at competitive prices. Order via WhatsApp — installation available in Nairobi and countrywide.">
+  <meta name="keywords" content="Hikvision prices Kenya, CCTV camera prices Kenya, alarm system price Kenya, electric fence price Kenya, Cat6 cable price Kenya, UPS price Kenya, solar panel price Kenya">
+
+  <link rel="icon" type="image/png" href="assets/img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- ===== TOPBAR ===== -->
+  <div class="topbar">
+    <div class="container">
+      <span class="topbar-item">📞 <a href="tel:+254735038835">0735 038 835</a></span>
+      <span class="topbar-item topbar-item--hide-sm">✉️ <a href="mailto:info@erakansystems.co.ke">info@erakansystems.co.ke</a></span>
+      <span class="topbar-item topbar-item--hide-sm">📍 City Centre, Nairobi, Kenya</span>
+    </div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="index.html">
+        <img src="assets/img/logo.png" alt="Erakan Systems Ltd logo">
+        <span class="brand-name">Erakan <span>Systems</span> Ltd
+          <span class="brand-tag">Security · Power · ICT</span></span>
+      </a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="products.html" class="active">Products</a>
+        <a href="contact.html">Contact</a>
+        <a href="contact.html" class="btn btn--green nav-cta">Get a Quote</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== PAGE HERO ===== -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / Products</div>
+      <h1>Products &amp; Price List</h1>
+      <p>Genuine equipment at competitive Kenyan prices. Tap <strong>Buy Now</strong> to order instantly on WhatsApp — we deliver and install countrywide.</p>
+    </div>
+  </section>
+
+  <!-- ===== PRODUCT CATALOGUE ===== -->
+  <section class="section">
+    <div class="container">
+
+      <!-- Filter buttons. data-filter matches the "category" field
+           of each product in products.js. -->
+      <div class="filters" role="group" aria-label="Filter products by category">
+        <button class="filter-btn active" data-filter="all">All Products</button>
+        <button class="filter-btn" data-filter="cctv">CCTV &amp; Surveillance</button>
+        <button class="filter-btn" data-filter="alarm">Alarms &amp; Fencing</button>
+        <button class="filter-btn" data-filter="network">Networking</button>
+        <button class="filter-btn" data-filter="power">Power Solutions</button>
+        <button class="filter-btn" data-filter="access">Access Control</button>
+      </div>
+
+      <!-- Empty grid — products.js fills this with cards -->
+      <div class="grid" id="product-grid"></div>
+
+      <p class="table-note" style="margin-top:26px;">
+        * All prices are indicative, exclusive of VAT, and subject to stock and exchange-rate changes.
+        Confirm the current price on WhatsApp before ordering. Genuine products with manufacturer warranty.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== INSTALLATION PRICE LIST TABLE ===== -->
+  <section class="section section--tint">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Price Guide</span>
+        <h2>Installation &amp; service price list</h2>
+        <div class="circuit"></div>
+        <p>Typical package pricing to help you budget. Final quotes follow a free site survey.</p>
+      </div>
+
+      <div class="price-table-wrap reveal">
+        <table class="price-table">
+          <thead>
+            <tr>
+              <th>Service / Package</th>
+              <th>What's Included</th>
+              <th>Indicative Price (KSh)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>4-Camera CCTV package (installed)</td>
+              <td>4× Hikvision 2MP cameras, 8ch DVR, 1TB HDD, PSU, cabling, phone viewing setup</td>
+              <td>35,000</td>
+            </tr>
+            <tr>
+              <td>8-Camera CCTV package (installed)</td>
+              <td>8× Hikvision 2MP cameras, 8ch DVR, 2TB HDD, PSU, cabling, phone viewing setup</td>
+              <td>62,000</td>
+            </tr>
+            <tr>
+              <td>IP CCTV package (4 cameras, installed)</td>
+              <td>4× 4MP IP cameras, PoE NVR, 2TB HDD, Cat6 cabling, remote viewing</td>
+              <td>from 75,000</td>
+            </tr>
+            <tr>
+              <td>Electric fence (wall-top)</td>
+              <td>Energizer, brackets, wire, warning signs, siren, installation &amp; certification</td>
+              <td>from 1,300 per metre</td>
+            </tr>
+            <tr>
+              <td>Razor wire installation</td>
+              <td>730mm galvanised concertina supplied &amp; fixed on wall-top</td>
+              <td>from 550 per metre</td>
+            </tr>
+            <tr>
+              <td>Wireless intruder alarm (installed)</td>
+              <td>GSM/WiFi panel, 2 PIRs, 2 door contacts, siren, remotes, phone alerts configured</td>
+              <td>from 22,000</td>
+            </tr>
+            <tr>
+              <td>Single-door access control (installed)</td>
+              <td>RFID keypad, 280kg maglock, exit button, power supply, 10 cards</td>
+              <td>from 18,500</td>
+            </tr>
+            <tr>
+              <td>Biometric time &amp; attendance (installed)</td>
+              <td>ZKTeco terminal, staff enrolment, report software setup</td>
+              <td>from 18,000</td>
+            </tr>
+            <tr>
+              <td>Structured cabling (per point)</td>
+              <td>Cat6 cable run, trunking, faceplate, patching &amp; testing</td>
+              <td>from 3,500 per point</td>
+            </tr>
+            <tr>
+              <td>Office WiFi network</td>
+              <td>Router config + 2 ceiling access points, cabling &amp; optimisation</td>
+              <td>from 28,000</td>
+            </tr>
+            <tr>
+              <td>Domestic house wiring</td>
+              <td>Full wiring, DB board, sockets, lighting points — per bedroom-equivalent</td>
+              <td>site survey quote</td>
+            </tr>
+            <tr>
+              <td>1kVA backup power (installed)</td>
+              <td>Inverter/UPS, 1× battery, changeover wiring for lights, TV, WiFi, DVR</td>
+              <td>from 45,000</td>
+            </tr>
+            <tr>
+              <td>3kVA solar backup system (installed)</td>
+              <td>Hybrid inverter, 2× panels, 1× 200Ah battery, mounting &amp; wiring</td>
+              <td>from 145,000</td>
+            </tr>
+            <tr>
+              <td>CCTV maintenance visit</td>
+              <td>Camera cleaning, focus check, HDD health, firmware &amp; recording audit</td>
+              <td>from 3,500 per visit</td>
+            </tr>
+            <tr>
+              <td>Annual SLA (small business)</td>
+              <td>Quarterly preventive maintenance + priority call-out for all your systems</td>
+              <td>custom quote</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">
+        Prices assume sites within Nairobi metro; transport applies for upcountry projects.
+        Request an exact quotation via the <a href="contact.html" style="color:var(--teal); font-weight:600;">contact page</a> or WhatsApp.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== HOW TO ORDER ===== -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <span class="eyebrow">Ordering Is Easy</span>
+        <h2>Three ways to buy</h2>
+        <div class="circuit"></div>
+      </div>
+      <div class="grid steps" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
+        <div class="step reveal">
+          <h3>WhatsApp (fastest)</h3>
+          <p>Tap <strong>Buy Now</strong> on any product — a chat opens with the product name already typed. Confirm price, pay, and we deliver or install.</p>
+        </div>
+        <div class="step reveal">
+          <h3>Email</h3>
+          <p>Send your product list or requirements to <a href="mailto:info@erakansystems.co.ke?subject=Product%20Order" style="color:var(--teal); font-weight:600;">info@erakansystems.co.ke</a> and we'll reply with a proforma invoice.</p>
+        </div>
+        <div class="step reveal">
+          <h3>Call us</h3>
+          <p>Prefer to talk? Call <a href="tel:+254735038835" style="color:var(--teal); font-weight:600;">0735 038 835</a> and speak directly to our sales team.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/img/logo.png" alt="Erakan Systems Ltd logo">
+          <p>Kenyan systems engineering &amp; ICT contractor delivering security, power and connectivity solutions that last.</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="products.html">Products &amp; Prices</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html">CCTV Installation</a></li>
+            <li><a href="services.html">Electric Fencing &amp; Alarms</a></li>
+            <li><a href="services.html">Structured Cabling</a></li>
+            <li><a href="services.html">Electrical Installations</a></li>
+            <li><a href="services.html">Solar &amp; Backup Power</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li>📍 City Centre, Nairobi, Kenya</li>
+            <li>📞 <a href="tel:+254735038835">0735 038 835</a></li>
+            <li>✉️ <a href="mailto:info@erakansystems.co.ke">info@erakansystems.co.ke</a></li>
+            <li>🌐 <a href="https://erakansystems.co.ke">erakansystems.co.ke</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> Erakan Systems Ltd. All rights reserved.</span>
+        <span>Security · Electrical · Networking · Power</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== FLOATING BUTTONS ===== -->
+  <div class="fab-stack">
+    <a class="fab fab--call" href="tel:+254735038835" aria-label="Call Erakan Systems">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011-.24 11.4 11.4 0 003.6.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.4 11.4 0 00.57 3.6 1 1 0 01-.25 1z"/></svg>
+    </a>
+    <a class="fab fab--wa" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"
+       href="https://wa.me/254735038835?text=Hello%20Erakan%20Systems%2C%20I%20am%20interested%20in%20your%20products.">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5.1-1.3A10 10 0 1012 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 01-3.3-2.9c-.3-.4 0-.6.1-.8l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.1 2.2-.2 3.8a11.6 11.6 0 004.5 4.2c1.7.8 2.4.9 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2z"/></svg>
+    </a>
+  </div>
+
+  <!-- main.js = shared behaviour, products.js = catalogue for THIS page -->
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/products.js"></script>
+</body>
+</html>
