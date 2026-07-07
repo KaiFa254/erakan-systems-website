@@ -363,8 +363,11 @@ function renderProducts(filter) {
               <button class="btn btn--primary btn--sm" onclick="addToCart('${p.model}')">
                 Add to Cart
               </button>
-              <!-- Instant one-item order straight to WhatsApp -->
+              <!-- Instant one-item order straight to WhatsApp.
+                   onclick logs the order to your Sheet's Orders tab
+                   in the background; the link then opens WhatsApp. -->
               <a class="btn btn--wa btn--icon" href="${whatsappLink(p)}"
+                 onclick="logBuyNow('${p.model}')"
                  target="_blank" rel="noopener" aria-label="Buy now on WhatsApp" title="Buy now on WhatsApp">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5.1-1.3A10 10 0 1012 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 01-3.3-2.9c-.3-.4 0-.6.1-.8l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.1 2.2-.2 3.8a11.6 11.6 0 004.5 4.2c1.7.8 2.4.9 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2z"/></svg>
               </a>
@@ -396,7 +399,11 @@ function loadLiveProducts() {
   const url = window.ERAKAN_CONFIG && window.ERAKAN_CONFIG.SHEET_API_URL;
   if (!url) return;                      // Sheet not connected yet — fine
 
-  fetch(url)
+  /* CACHE-BUSTER: we bolt a unique timestamp onto the URL
+     (?t=1736...). Because the address is different every time,
+     no browser or network cache can ever serve yesterday's
+     prices — every page load gets fresh data from the Sheet. */
+  fetch(url + (url.indexOf('?') === -1 ? '?' : '&') + 't=' + Date.now())
     .then(function (response) { return response.json(); })
     .then(function (data) {
       /* Basic sanity check: must be a non-empty list with prices */
@@ -474,6 +481,36 @@ function spotlightFromURL() {
   card.scrollIntoView({ behavior: 'smooth', block: 'center' });
   card.classList.add('is-spotlight');
   setTimeout(function () { card.classList.remove('is-spotlight'); }, 4000);
+}
+
+/* ============================================================
+   BUY NOW LOGGING
+   ------------------------------------------------------------
+   The round WhatsApp button used to go straight to WhatsApp
+   with no record in your Sheet. Now it ALSO drops a row into
+   the Orders tab first ("fire and forget" — it never delays
+   or blocks the WhatsApp window from opening). The customer's
+   name/phone are unknown at this point, so the Location column
+   says the details are in the WhatsApp chat.
+   ============================================================ */
+function logBuyNow(model) {
+  const p = productByModel(model);
+  const url = window.ERAKAN_CONFIG && window.ERAKAN_CONFIG.SHEET_API_URL;
+  if (!p || !url) return;                 // Sheet not connected → skip quietly
+  try {
+    fetch(url, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({
+        name: '(Buy Now button)',
+        phone: '',
+        location: 'Details in WhatsApp chat',
+        items: [{ name: p.name, model: p.model, qty: 1, price: p.price }],
+        total: p.price
+      })
+    });
+  } catch (e) { /* logging must never break the Buy Now click */ }
 }
 
 /* Wire up the filter buttons once the page has loaded */

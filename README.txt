@@ -34,6 +34,16 @@ Social media links........ search "socials" in any page footer, edit hrefs
 Sheet connection.......... assets/js/cart.js -> SHEET_API_URL
 Edit price list table..... products.html -> the <table class="price-table">
 
+CACHE-PROOF UPDATES (?v= version numbers)
+-----------------------------------------
+Every page links its CSS/JS with a version tag, e.g.
+  assets/css/style.css?v=6
+Whenever you change style.css or any .js file, bump the number
+(v=6 -> v=7) in ALL five html pages before deploying. Browsers
+treat the new address as a new file and fetch it immediately --
+customers can never be stuck on an old design or old code.
+(Quick way: VS Code Ctrl+Shift+F, search v=6, replace with v=7.)
+
 VIEW LOCALLY
 ------------
 Just double-click index.html — it opens in your browser.
