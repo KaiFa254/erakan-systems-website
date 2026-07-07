@@ -1,11 +1,33 @@
 ---
+# ============================================================
+# ERAKAN SYSTEMS — .cpanel.yml  (cPanel Git deployment recipe)
+# ------------------------------------------------------------
+# cPanel reads this file when you click "Deploy HEAD Commit"
+# in Git Version Control. Each task line is a shell command
+# that copies files from the repository into public_html.
+#
+# ⚠ ONE EDIT REQUIRED BEFORE FIRST DEPLOY:
+#   Replace  YOUR_CPANEL_USERNAME  below with your real cPanel
+#   username. Find it on the cPanel home page, right sidebar,
+#   under "General Information → Current User" — and confirm
+#   the "Home Directory" shown there matches /home/<user>
+#   (some servers use /home1 or /home2 — copy it exactly).
+#
+# Formatting rules cPanel enforces:
+#   • the file MUST start with the three dashes on line 1
+#   • indent with SPACES only (never tabs)
+# ============================================================
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/rpbwerru/public_html/
-    - /bin/cp index.html $DEPLOYPATH
-    - /bin/cp about.html $DEPLOYPATH
-    - /bin/cp services.html $DEPLOYPATH
-    - /bin/cp products.html $DEPLOYPATH
-    - /bin/cp contact.html $DEPLOYPATH
-    - /bin/cp README.txt $DEPLOYPATH
-    - /bin/cp -R assets $DEPLOYPATHdd
+    # Where the live website lives on the server
+    - export DEPLOYPATH=/home/rpbwerru/public_html
+
+    # The five pages + the edit cheat-sheet
+    - /bin/cp -f index.html about.html services.html products.html contact.html README.txt $DEPLOYPATH/
+
+    # Everything in assets/ (css, js, images), copied recursively
+    - /bin/cp -Rf assets $DEPLOYPATH/
+
+    # NOTE: the google-sheet/ folder (Code.gs, CSV, setup guide)
+    # is deliberately NOT copied — it is reference material for
+    # you, not something visitors should be able to download.
