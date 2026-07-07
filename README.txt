@@ -10,20 +10,29 @@ about.html            About / mission / vision / values
 services.html         Detailed services + process
 products.html         Shop with filters + price list table
 contact.html          Contact cards + enquiry form + FAQ
-assets/css/style.css  ALL styling (colours, layout, mobile rules)
+assets/css/style.css  ALL styling (now incl. cart & socials, section 14)
+assets/js/cart.js     NEW - cart, checkout, CONFIG (WhatsApp no. + Sheet URL)
 assets/js/main.js     Menu, sticky header, animations, footer year
-assets/js/products.js YOUR PRODUCT DATABASE + Buy Now logic
+assets/js/products.js Built-in product catalogue + live Sheet fetch
 assets/img/logo.png   Company logo
 assets/img/products/  Drop real product photos here (see README inside)
+google-sheet/         NEW - Code.gs, products-template.csv, SETUP-GUIDE.txt
+                      (reference files; NOT uploaded to the server)
 
 MOST COMMON EDITS
 -----------------
-Change a price............ assets/js/products.js  → edit the number
-Add/remove a product...... assets/js/products.js  → copy/delete a block
-Change brand colours...... assets/css/style.css   → the :root section at top
-Change phone/email........ search-and-replace "254735038834" /
-                           "0735 038 834" / "info@erakansystems.co.ke"
-Edit price list table..... products.html → the <table class="price-table">
+Change a price............ Google Sheet "Products" tab (once connected)
+                           or assets/js/products.js fallback list
+Add/remove a product...... add/delete a ROW in the Products tab
+Hide a product............ set its instock cell to NO
+View orders............... Google Sheet "Orders" tab
+Share one product......... tap the share icon on its card - link copied
+Change brand colours...... assets/css/style.css -> the :root section at top
+Change phone number....... assets/js/cart.js CONFIG + search-and-replace
+                           "254735038834" / "0735 038 834" in the HTML pages
+Social media links........ search "socials" in any page footer, edit hrefs
+Sheet connection.......... assets/js/cart.js -> SHEET_API_URL
+Edit price list table..... products.html -> the <table class="price-table">
 
 VIEW LOCALLY
 ------------

@@ -1,0 +1,29 @@
+name,model,category,price,desc,img,instock
+"Hikvision 2MP Turbo HD Bullet Camera","DS-2CE16D0T-IRF","cctv",3500,"1080p outdoor bullet, 20 m infrared night vision, weatherproof IP66 body. The workhorse of home and shop CCTV.","hikvision-bullet-2mp.jpg",YES
+"Hikvision 2MP Turbo HD Dome Camera","DS-2CE76D0T-ITPF","cctv",3400,"Discreet 1080p indoor dome with smart IR. Ideal for offices, receptions and retail interiors.","hikvision-dome-2mp.jpg",YES
+"Hikvision 4MP IP Bullet Camera","DS-2CD1043G0-I","cctv",8500,"Network camera with sharp 4MP detail, H.265+ compression and 30 m EXIR night range. PoE powered — one cable does it all.","hikvision-ip-4mp.jpg",YES
+"Hikvision 6MP ColorVu Bullet Camera","DS-2CD1067G2H-LIU","cctv",10500,"Full-colour video even at night, built-in mic, human & vehicle detection. Premium choice for gates and parking.","hikvision-colorvu-6mp.jpg",YES
+"Hikvision 8-Channel Turbo HD DVR","iDS-7208HQHI-M1/S","cctv",11500,"Records up to 8 analogue cameras with AcuSense human/vehicle filtering. Supports 1 hard disk up to 10TB.","hikvision-dvr-8ch.jpg",YES
+"Hikvision 8-Channel PoE NVR","DS-7608NI-K1/8P","cctv",22000,"4K network video recorder with 8 built-in PoE ports — plug IP cameras straight in, no separate power supplies.","hikvision-nvr-8ch.jpg",YES
+"4-Camera Full HD CCTV Kit (Installed)","Hikvision 1080p bundle","cctv",35000,"Complete package: 4× 2MP cameras, 8ch DVR, 1TB surveillance HDD, power supply, cabling and professional installation within Nairobi.","kit-4-camera.jpg",YES
+"8-Camera Full HD CCTV Kit (Installed)","Hikvision 1080p bundle","cctv",62000,"For larger homes and business premises: 8× 2MP cameras, 8ch DVR, 2TB HDD, PSU, cabling and installation. Remote phone viewing configured free.","kit-8-camera.jpg",YES
+"WD Purple 1TB Surveillance Hard Disk","WD10PURZ","cctv",6500,"Purpose-built for 24/7 CCTV recording — roughly 2–3 weeks of footage from a 4-camera 1080p system.","wd-purple-1tb.jpg",YES
+"Wireless GSM/WiFi Intruder Alarm Kit","App + SMS alerts","alarm",13500,"Control panel, PIR motion sensors, door contacts, remotes and siren. Calls/SMS you the moment a zone is triggered; arm and disarm from your phone.","alarm-gsm-kit.jpg",YES
+"PIR Motion Detector","Wired, pet-immune option","alarm",1800,"Detects body-heat movement across a room. Add extra zones to any existing alarm panel.","pir-detector.jpg",YES
+"Outdoor Siren & Strobe Kit","Cover + horn + strobe","alarm",2900,"Loud audible siren with flashing strobe — a visible deterrent that alerts the whole neighbourhood.","siren-strobe.jpg",YES
+"Magnetic Door/Window Contact","Surface mount","alarm",650,"Triggers the alarm the instant a protected door or window is opened. Sold per piece.","door-contact.jpg",YES
+"Electric Fence Energizer (Single Zone)","Wall-top / free-standing","alarm",26500,"High-voltage pulse energizer with tamper alarm output, battery backup and warning signage. Installation quoted per metre after site survey.","fence-energizer.jpg",YES
+"Razor Wire 730mm (Per Roll)","Galvanised, 10 m coverage","alarm",3200,"Concertina razor wire for wall-tops and perimeters. Frequently combined with electric fencing for layered security.","razor-wire.jpg",YES
+"Cat6 UTP Cable — 305m Box","Giganet / pure copper","network",11500,"Gigabit-rated structured cabling for offices, CCTV IP systems and access points. Full 305-metre pull box.","cat6-box.jpg",YES
+"24-Port Gigabit Rackmount Switch","TP-Link TL-SG1024","network",13500,"Plug-and-play gigabit switching for office networks and server cabinets. Steel chassis, fanless quiet operation.","switch-24port.jpg",YES
+"Ceiling Wireless Access Point","TP-Link EAP series","network",8500,"Business-grade WiFi coverage for offices, hotels and apartments. Multiple units roam seamlessly on one network name.","access-point.jpg",YES
+"Yealink IP Desk Phone","SIP-T31G","network",8900,"Crystal-clear VoIP desk phone with 2 line keys and PoE. We supply, configure and link to your PBX.","ip-phone.jpg",YES
+"9U Wall-Mount Network Cabinet","600×450mm, glass door","network",9500,"Houses your switch, patch panel, DVR/NVR and power neatly and securely. Includes fan tray and lockable door.","cabinet-9u.jpg",YES
+"1kVA Line-Interactive UPS","Mecer / APC class","power",9500,"Keeps your router, DVR and PC running through blackouts and protects electronics from surges.","ups-1kva.jpg",YES
+"3kVA Hybrid Solar Inverter","Must / Growatt class","power",45000,"Runs your home essentials from solar + battery with automatic mains switching. Core of any backup power system.","inverter-3kva.jpg",YES
+"450W Monocrystalline Solar Panel","Tier-1 cells","power",13500,"High-efficiency panel for home and institutional solar arrays. 25-year output warranty from manufacturer.","solar-panel-450w.jpg",YES
+"200Ah Gel Deep-Cycle Battery","12V maintenance-free","power",32000,"Stores solar energy for night-time use. Gel chemistry handles Kenyan heat better than flooded batteries.","battery-200ah.jpg",YES
+"ZKTeco Biometric Time & Attendance","K40","access",13500,"Fingerprint + card + PIN clock-in terminal with built-in battery. Exports staff attendance reports to Excel.","zkteco-k40.jpg",YES
+"Standalone RFID Access Keypad","Metal, waterproof","access",4500,"Controls a single door with cards, fobs or PIN codes. Pairs with a magnetic lock and exit button.","rfid-keypad.jpg",YES
+"Magnetic Door Lock 280kg + Bracket","Fail-safe","access",5500,"Electromagnetic lock holding force of 280kg — releases instantly on exit button, card or power cut for fire safety.","maglock-280.jpg",YES
+"Video Doorbell / Intercom Kit","7"" colour monitor","access",12500,"See and speak to visitors at the gate before letting them in. Unlock option available with compatible locks.","video-intercom.jpg",YES

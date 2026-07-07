@@ -12,14 +12,27 @@
    edit products.html by hand.
    ============================================================ */
 
-/* Your WhatsApp business number in INTERNATIONAL format:
-   0735 038 834  →  254735038834  (drop the 0, add 254). */
-const WHATSAPP_NUMBER = '254735038834';
+/* The WhatsApp number now lives in ONE place for the whole site:
+   the ERAKAN_CONFIG block at the top of cart.js. We read it from
+   there (with a safety fallback in case cart.js did not load). */
+const WHATSAPP_NUMBER =
+  (window.ERAKAN_CONFIG && window.ERAKAN_CONFIG.WHATSAPP_NUMBER) || '254735038834';
+
+/* ============================================================
+   WHERE PRODUCTS COME FROM (the Route-1 upgrade)
+   ------------------------------------------------------------
+   The list below is now the BUILT-IN FALLBACK catalogue.
+   If ERAKAN_CONFIG.SHEET_API_URL (in cart.js) is set, the page
+   fetches the LIVE list from your Google Sheet instead — so you
+   update products by editing the Sheet, not this file.
+   If the Sheet is unreachable (or the URL is empty), the page
+   quietly uses this list, so the shop NEVER shows up empty.
+   ============================================================ */
 
 /* Categories must match the data-filter values of the buttons
    in products.html: cctv | alarm | network | power | access   */
 
-const PRODUCTS = [
+let PRODUCTS = [   /* "let" (not const) so the live Sheet can replace it */
 
   /* ---------------- CCTV & SURVEILLANCE ---------------- */
   {
@@ -295,22 +308,40 @@ const CATEGORY_LABELS = {
   power: 'Power', access: 'Access Control'
 };
 
+/* Find a product by its model number — used by the Add to Cart
+   buttons, which only carry the model as an identifier. */
+function productByModel(model) {
+  return PRODUCTS.find(function (p) { return p.model === model; });
+}
+
+/* Called by every "Add to Cart" button. It looks the product up,
+   then hands it to the Cart (defined in cart.js). */
+function addToCart(model) {
+  const p = productByModel(model);
+  if (p && window.Cart) window.Cart.add(p);
+}
+
 /* Draw product cards into the page.
    filter = 'all' shows everything; otherwise only that category. */
 function renderProducts(filter) {
   const grid = document.getElementById('product-grid');
   if (!grid) return;                     // not on products page → do nothing
 
-  /* 1) Choose which products to show */
+  /* 1) Choose which products to show.
+        Products marked instock:'NO' in the Google Sheet are hidden
+        (the built-in list has no instock field → treated as in stock). */
+  const stocked = PRODUCTS.filter(function (p) {
+    return String(p.instock || 'YES').toUpperCase() !== 'NO';
+  });
   const visible = (filter === 'all')
-    ? PRODUCTS
-    : PRODUCTS.filter(function (p) { return p.category === filter; });
+    ? stocked
+    : stocked.filter(function (p) { return p.category === filter; });
 
   /* 2) Build one HTML string of all the cards.
         Template literals (backticks ``) let us mix HTML + variables. */
   grid.innerHTML = visible.map(function (p) {
     return `
-      <article class="product reveal is-visible">
+      <article class="product reveal is-visible" data-model="${p.model}">
         <div class="product-media">
           <span class="product-tag">${CATEGORY_LABELS[p.category]}</span>
           ${CATEGORY_ICONS[p.category]}
@@ -327,20 +358,130 @@ function renderProducts(filter) {
           <p>${p.desc}</p>
           <div class="product-foot">
             <div class="price">${formatPrice(p.price)}<small>excl. VAT · indicative</small></div>
-            <a class="btn btn--wa" href="${whatsappLink(p)}" target="_blank" rel="noopener">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5.1-1.3A10 10 0 1012 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 01-3.3-2.9c-.3-.4 0-.6.1-.8l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.1 2.2-.2 3.8a11.6 11.6 0 004.5 4.2c1.7.8 2.4.9 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2z"/></svg>
-              Buy Now
-            </a>
+            <div class="product-actions">
+              <!-- Adds this item to the shopping cart (cart.js) -->
+              <button class="btn btn--primary btn--sm" onclick="addToCart('${p.model}')">
+                Add to Cart
+              </button>
+              <!-- Instant one-item order straight to WhatsApp -->
+              <a class="btn btn--wa btn--icon" href="${whatsappLink(p)}"
+                 target="_blank" rel="noopener" aria-label="Buy now on WhatsApp" title="Buy now on WhatsApp">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5.1-1.3A10 10 0 1012 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 01-3.3-2.9c-.3-.4 0-.6.1-.8l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.1 2.2-.2 3.8a11.6 11.6 0 004.5 4.2c1.7.8 2.4.9 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2z"/></svg>
+              </a>
+              <!-- NEW: copies this product's own link — paste it in a
+                   Facebook post, Instagram bio, WhatsApp status or ad -->
+              <button class="btn btn--icon btn--share" onclick="shareProduct('${p.model}')"
+                      aria-label="Copy product link" title="Copy product link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7l7.4-4.4M8.3 13.3l7.4 4.4"/></svg>
+              </button>
+            </div>
           </div>
         </div>
       </article>`;
   }).join('');
 }
 
+/* ============================================================
+   LIVE CATALOGUE — fetch the latest products from your Google
+   Sheet (via the Apps Script URL in cart.js's ERAKAN_CONFIG).
+   ------------------------------------------------------------
+   fetch(url)         → asks Google for the data (a "promise")
+   .then(r.json())    → converts the reply text into JS objects
+   PRODUCTS = data    → swaps in the live list
+   renderProducts()   → redraws the grid with fresh data
+   Any failure (no internet, wrong URL, Google down) is caught
+   and ignored — the built-in list above is already on screen.
+   ============================================================ */
+function loadLiveProducts() {
+  const url = window.ERAKAN_CONFIG && window.ERAKAN_CONFIG.SHEET_API_URL;
+  if (!url) return;                      // Sheet not connected yet — fine
+
+  fetch(url)
+    .then(function (response) { return response.json(); })
+    .then(function (data) {
+      /* Basic sanity check: must be a non-empty list with prices */
+      if (Array.isArray(data) && data.length > 0 && data[0].price !== undefined) {
+        PRODUCTS = data;                 // swap in the live catalogue
+
+        /* Redraw using whichever filter button is currently active */
+        const activeBtn = document.querySelector('.filter-btn.active');
+        renderProducts(activeBtn ? activeBtn.dataset.filter : 'all');
+        spotlightFromURL();              // re-apply ?item= highlight after redraw
+      }
+    })
+    .catch(function (err) {
+      /* Stay silent for visitors; log for you (F12 → Console) */
+      console.warn('Live catalogue unavailable, using built-in list.', err);
+    });
+}
+
+/* ============================================================
+   PRODUCT SHARE LINKS & DEEP LINKING (for social media + ads)
+   ------------------------------------------------------------
+   Every product now has its OWN web address:
+
+     https://erakansystems.co.ke/products.html?item=MODEL-NUMBER
+
+   • shareProduct(model) — wired to the share button on each
+     card. It builds that address and copies it to the clipboard
+     so you can paste it into a Facebook post, Instagram bio,
+     TikTok caption, WhatsApp status, or as an ad's destination.
+
+   • spotlightFromURL()  — runs when the page opens. If the
+     address contains ?item=..., it scrolls straight to that
+     product and pulses a green highlight around it, so ad
+     clickers land on EXACTLY the product you promoted.
+   ============================================================ */
+
+/* Build the shareable address for one product */
+function productLink(model) {
+  /* location.origin = https://erakansystems.co.ke
+     location.pathname = /products.html
+     encodeURIComponent keeps model numbers URL-safe */
+  return location.origin + location.pathname + '?item=' + encodeURIComponent(model);
+}
+
+/* Copy the link to the clipboard (with a fallback for older
+   phones) and confirm with the little toast bubble */
+function shareProduct(model) {
+  const link = productLink(model);
+  const done = function () {
+    if (typeof cartToast === 'function') cartToast('Product link copied — paste it anywhere!');
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(link).then(done).catch(function () {
+      window.prompt('Copy this product link:', link);   /* manual fallback */
+    });
+  } else {
+    window.prompt('Copy this product link:', link);
+  }
+}
+
+/* If the page was opened via a ?item= link, jump to that product */
+function spotlightFromURL() {
+  /* URLSearchParams reads the ?key=value part of the address */
+  const model = new URLSearchParams(location.search).get('item');
+  if (!model) return;                    // normal visit → nothing to do
+
+  /* Find the card whose data-model matches. CSS.escape guards
+     against special characters in model numbers. */
+  const card = document.querySelector(
+    '.product[data-model="' + (window.CSS && CSS.escape ? CSS.escape(model) : model) + '"]');
+  if (!card) return;                     // hidden/removed product → ignore
+
+  /* Scroll the card into the middle of the screen and pulse a
+     green highlight (the .is-spotlight styles in style.css §14) */
+  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  card.classList.add('is-spotlight');
+  setTimeout(function () { card.classList.remove('is-spotlight'); }, 4000);
+}
+
 /* Wire up the filter buttons once the page has loaded */
 document.addEventListener('DOMContentLoaded', function () {
 
-  renderProducts('all');                 // show everything on first load
+  renderProducts('all');                 // instant draw from built-in list
+  spotlightFromURL();                    // jump to ?item= product if linked
+  loadLiveProducts();                    // then upgrade to the live Sheet
 
   const buttons = document.querySelectorAll('.filter-btn');
   buttons.forEach(function (btn) {

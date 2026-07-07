@@ -813,3 +813,192 @@ h1,h2,h3,h4{
 
   .fab--call{ display: grid; }   /* phones CAN dial → show call button */
 }
+
+
+/* ============================================================
+   14. E-COMMERCE UPGRADE — cart, checkout & social links
+   ------------------------------------------------------------
+   Everything below was added for the Route-1 shop upgrade.
+   The drawer/modal HTML is injected by assets/js/cart.js.
+   ============================================================ */
+
+/* ---------- Header cart button + red count badge ---------- */
+.cart-btn{
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 42px; height: 42px;
+  border: 1.5px solid var(--line); border-radius: 50%;
+  background: var(--white); color: var(--navy);
+  cursor: pointer; margin-left: 14px;
+  transition: border-color .2s ease, color .2s ease;
+}
+.cart-btn:hover{ border-color: var(--green); color: var(--green); }
+.cart-btn svg{ width: 20px; height: 20px; }
+.cart-count{
+  position: absolute; top: -5px; right: -5px;
+  min-width: 18px; height: 18px; padding: 0 4px;
+  background: var(--green); color: #fff;
+  font-size: .68rem; font-weight: 700; line-height: 18px;
+  border-radius: 9px; text-align: center;
+}
+
+/* ---------- Dark overlay behind the open drawer ---------- */
+.cart-overlay{
+  position: fixed; inset: 0; z-index: 90;
+  background: rgba(18,42,80,.5);
+  opacity: 0; pointer-events: none;      /* invisible until open */
+  transition: opacity .3s ease;
+}
+body.cart-is-open .cart-overlay{ opacity: 1; pointer-events: auto; }
+
+/* ---------- The slide-out cart drawer ---------- */
+.cart-drawer{
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 95;
+  width: min(400px, 92vw);
+  background: var(--white);
+  display: flex; flex-direction: column;
+  transform: translateX(105%);           /* parked off-screen      */
+  transition: transform .35s ease;
+  box-shadow: -12px 0 34px rgba(18,42,80,.18);
+}
+body.cart-is-open .cart-drawer{ transform: translateX(0); }
+
+.cart-head{
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 20px; border-bottom: 1px solid var(--line);
+}
+.cart-head h3{ font-family: var(--font-display); color: var(--navy); }
+.cart-close{
+  border: 0; background: none; cursor: pointer;
+  font-size: 1.7rem; line-height: 1; color: var(--muted);
+}
+.cart-close:hover{ color: var(--navy); }
+
+.cart-items{ flex: 1; overflow-y: auto; padding: 14px 20px; }
+.cart-empty{ color: var(--muted); text-align: center; margin-top: 40px; }
+.cart-empty a{ color: var(--teal); font-weight: 600; }
+
+.cart-line{
+  display: flex; justify-content: space-between; gap: 10px;
+  padding: 12px 0; border-bottom: 1px dashed var(--line);
+}
+.cart-line-info strong{ display:block; font-size:.9rem; color: var(--ink); }
+.cart-line-model{ display:block; font-size:.74rem; color: var(--teal); }
+.cart-line-price{ display:block; font-size:.8rem; color: var(--muted); }
+
+.cart-line-controls{ display: flex; align-items: center; gap: 8px; }
+.qty-btn{
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 1.5px solid var(--line); background: var(--white);
+  font-size: 1rem; line-height: 1; cursor: pointer; color: var(--navy);
+}
+.qty-btn:hover{ border-color: var(--green); color: var(--green); }
+.qty-num{ min-width: 18px; text-align: center; font-weight: 700; }
+.line-remove{
+  border: 0; background: none; color: var(--muted);
+  font-size: 1.2rem; cursor: pointer;
+}
+.line-remove:hover{ color: #C0392B; }
+
+.cart-foot{ padding: 16px 20px; border-top: 1px solid var(--line); }
+.cart-total-row{
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 1.05rem; margin-bottom: 6px;
+}
+.cart-total-row strong{ color: var(--navy); font-size: 1.2rem; }
+.cart-note{ font-size: .74rem; color: var(--muted); margin-bottom: 12px; }
+.btn--block{ display: flex; width: 100%; justify-content: center; }
+
+/* ---------- Checkout details pop-up ---------- */
+.checkout-modal{
+  position: fixed; inset: 0; z-index: 99;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(18,42,80,.55); padding: 20px;
+}
+.checkout-modal.is-open{ display: flex; }
+.checkout-box{
+  background: var(--white); border-radius: var(--radius);
+  padding: 26px; width: min(420px, 100%);
+  box-shadow: var(--shadow);
+}
+.checkout-box h3{ font-family: var(--font-display); color: var(--navy); margin-bottom: 4px; }
+.checkout-box > p{ font-size: .86rem; color: var(--muted); margin-bottom: 14px; }
+.checkout-box label{
+  display: block; font-size: .8rem; font-weight: 600;
+  color: var(--navy); margin: 10px 0 4px;
+}
+.checkout-box input{
+  width: 100%; padding: 10px 12px;
+  border: 1.5px solid var(--line); border-radius: 8px;
+  font: inherit; font-size: .9rem;
+}
+.checkout-box input:focus{
+  outline: none; border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--green-soft);
+}
+.checkout-actions{ display: flex; gap: 10px; justify-content: flex-end; margin-top: 18px; }
+.btn--ghost-dark{
+  background: none; border: 1.5px solid var(--line); color: var(--navy);
+}
+.btn--ghost-dark:hover{ border-color: var(--navy); }
+
+/* ---------- "Added to cart" toast bubble ---------- */
+.toast{
+  position: fixed; left: 50%; bottom: 26px; z-index: 100;
+  transform: translate(-50%, 20px);
+  background: var(--navy-dark); color: #fff;
+  padding: 11px 20px; border-radius: 24px;
+  font-size: .85rem; box-shadow: var(--shadow);
+  opacity: 0; pointer-events: none;
+  transition: opacity .25s ease, transform .25s ease;
+}
+.toast.is-visible{ opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- Product card action buttons ---------- */
+.product-actions{ display: flex; align-items: center; gap: 8px; }
+.btn--sm{ padding: 9px 14px; font-size: .82rem; }
+.btn--icon{
+  width: 38px; height: 38px; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+}
+
+/* ---------- Footer social media icons ---------- */
+.socials{ display: flex; gap: 10px; margin-top: 14px; }
+.socials a{
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,.25);
+  color: #CFE0D2;
+  transition: border-color .2s ease, color .2s ease, transform .2s ease;
+}
+.socials a:hover{
+  border-color: var(--green); color: var(--green);
+  transform: translateY(-2px);
+}
+.socials svg{ width: 17px; height: 17px; }
+
+/* ---------- Small-screen adjustments for the new pieces ---------- */
+@media (max-width: 760px){
+  .cart-btn{ width: 38px; height: 38px; margin-left: 8px; }
+  .product-actions{ width: 100%; justify-content: space-between; }
+}
+
+/* ---------- Product share button + deep-link spotlight ---------- */
+.btn--share{
+  background: var(--white); color: var(--teal);
+  border: 1.5px solid var(--line);
+}
+.btn--share:hover{ border-color: var(--teal); background: var(--green-soft); }
+
+/* The green pulse shown when a product is opened via its own
+   ?item= link (shared on Facebook / Instagram / ads). */
+.product.is-spotlight{
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
+  animation: spotlight-pulse 1.1s ease-in-out 3;
+}
+@keyframes spotlight-pulse{
+  0%,100%{ box-shadow: 0 0 0 0 rgba(63,168,67,.45); }
+  50%    { box-shadow: 0 0 0 14px rgba(63,168,67,0); }
+}

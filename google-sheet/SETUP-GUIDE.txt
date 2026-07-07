@@ -1,0 +1,124 @@
+ERAKAN SYSTEMS — E-COMMERCE SETUP GUIDE (Route 1)
+==================================================
+Cart + WhatsApp checkout + Google Sheet portal
+Time needed: ~30 minutes · Cost: KSh 0
+
+The website already works fully AS UPLOADED — cart, checkout and
+WhatsApp all function using the built-in product list. This guide
+connects the Google Sheet so you can (a) edit products without
+touching code and (b) see every order logged automatically.
+
+
+PART 1 — CREATE THE GOOGLE SHEET (your portal)
+----------------------------------------------
+1. Go to sheets.google.com (signed in to your Google account)
+   → Blank spreadsheet → name it "Erakan Shop".
+
+2. Rename the first tab (bottom-left) from "Sheet1" to:  Products
+   (exact spelling, capital P — the script looks for this name)
+
+3. Import the product catalogue:
+   File → Import → Upload → choose  products-template.csv
+   (found in this same google-sheet folder)
+   → Import location: "Replace current sheet" → Import data.
+   You now have all 28 products with headers:
+   name | model | category | price | desc | img | instock
+
+4. Add a second tab (the + at bottom-left) named:  Orders
+   In row 1 type these seven headers exactly:
+   Timestamp | Name | Phone | Location | Items | Total | Status
+
+That spreadsheet is now your portal:
+   • Products tab → change any price, edit descriptions, add a
+     row for a new product, set instock to NO to hide one.
+   • Orders tab  → every checkout appears here automatically;
+     you update the Status column (NEW → CONFIRMED → PAID →
+     DELIVERED) as each order progresses.
+
+
+PART 2 — INSTALL THE MINI-SERVER (Apps Script)
+----------------------------------------------
+5. In the Sheet: Extensions → Apps Script.
+   A code editor opens with an empty function.
+
+6. Delete everything there, then paste the ENTIRE contents of
+   Code.gs (in this folder). Click the 💾 save icon.
+
+7. Set your timezone: (gear icon) Project Settings → Time zone →
+   (GMT+03:00) Africa/Nairobi.
+
+8. Deploy it:  Deploy → New deployment
+   → gear icon next to "Select type" → Web app
+   → Description: Erakan shop API
+   → Execute as:        Me
+   → Who has access:    Anyone            ← important!
+   → Deploy.
+   Google will ask you to authorise: choose your account →
+   "Advanced" → "Go to ... (unsafe)" → Allow.
+   (That warning is standard for personal scripts — you wrote
+   this code, it only touches this one spreadsheet.)
+
+9. COPY THE WEB APP URL it shows — a long address ending in /exec
+   e.g. https://script.google.com/macros/s/AKfycb…/exec
+
+
+PART 3 — CONNECT THE WEBSITE
+----------------------------
+10. Open  assets/js/cart.js  and find the CONFIG block at the top.
+    Paste your URL between the quotes:
+
+    SHEET_API_URL: 'https://script.google.com/macros/s/AKfycb…/exec'
+
+11. Save, and upload the changed cart.js to Truehost
+    (cPanel → File Manager → public_html/assets/js/ → Upload,
+    overwrite the old file). That single line is the only code
+    change the connection needs.
+
+
+PART 4 — TEST THE FULL LOOP
+---------------------------
+12. Products test: change one price in the Products tab, then
+    hard-refresh the live products page (Ctrl+Shift+R). The new
+    price should appear.
+13. Order test: add two items to the cart on your phone →
+    Checkout → fill your name → Send Order.
+    ✔ WhatsApp opens to 0735 038 834 with the full order
+    ✔ A new row appears in the Orders tab within seconds
+14. Stock test: set one product's instock to NO → refresh →
+    it disappears from the shop. Set back to YES → it returns.
+
+
+HOW ORDERS + PAYMENT FLOW (day-to-day)
+--------------------------------------
+Customer checks out → order arrives twice (WhatsApp + Orders row)
+→ you confirm stock/delivery/total in the chat and share your
+M-Pesa till or number → customer pays → M-Pesa SMS arrives →
+you set that row's Status to PAID → dispatch → DELIVERED.
+
+Recommended: register a free Lipa na M-Pesa "Buy Goods" till for
+Erakan Systems via M-PESA for Business — payments show your
+business name and stay separate from personal funds.
+
+
+TROUBLESHOOTING
+---------------
+• Price edits not showing → wait ~1 min & hard-refresh; confirm
+  the tab is named exactly "Products"; check the URL in cart.js
+  ends with /exec and has no spaces.
+• Orders not appearing → confirm tab named exactly "Orders" with
+  the 7 headers; redeploy after any script edit (Deploy → Manage
+  deployments → edit ✏️ → Version: New → Deploy).
+• Site shows old built-in products only → the URL is empty or
+  wrong in cart.js; F12 → Console will show a warning.
+• Edited Code.gs but nothing changed → you must create a NEW
+  VERSION when redeploying (step above); saving alone is not
+  enough.
+
+SECURITY NOTES
+--------------
+• Never share edit access to the Sheet — view access is enough
+  for staff who only monitor orders.
+• The /exec URL is public but can only serve products and accept
+  orders. It cannot expose the Orders tab or edit anything.
+• Keep the Sheet itself PRIVATE (do not "publish to web") — the
+  script reads it on your behalf.
