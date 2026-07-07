@@ -35,7 +35,7 @@ window.ERAKAN_CONFIG = {
      ▸ Once you deploy the script (see ECOMMERCE-SETUP-GUIDE),
        paste the long URL between the quotes, e.g.:
        'https://script.google.com/macros/s/AKfycb.../exec'     */
-  SHEET_API_URL: ''
+  SHEET_API_URL: 'https://script.google.com/macros/s/AKfycbwufIGyNUNd8J-ECgprI9n116WaCaiBMbolQMtaPH1usRsgcH4mAk6cEe4bTGDQDLE/exec'
 };
 
 
