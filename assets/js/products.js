@@ -16,7 +16,7 @@
    the ERAKAN_CONFIG block at the top of cart.js. We read it from
    there (with a safety fallback in case cart.js did not load). */
 const WHATSAPP_NUMBER =
-  (window.ERAKAN_CONFIG && window.ERAKAN_CONFIG.WHATSAPP_NUMBER) || '254735038834';
+  (window.ERAKAN_CONFIG && window.ERAKAN_CONFIG.WHATSAPP_NUMBER) || '254791084235';
 
 /* ============================================================
    WHERE PRODUCTS COME FROM (the Route-1 upgrade)

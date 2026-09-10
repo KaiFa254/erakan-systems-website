@@ -26,7 +26,7 @@ window.ERAKAN_CONFIG = {
 
   /* WhatsApp number in INTERNATIONAL format:
      0735 038 834  →  254735038834  (drop the 0, add 254) */
-  WHATSAPP_NUMBER: '254735038834',
+  WHATSAPP_NUMBER: '254791084235',
 
   /* Your Google Apps Script "web app" URL.
      ▸ Leave as '' (empty) and the site still works fully:
